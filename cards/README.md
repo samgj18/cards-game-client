@@ -1,4 +1,7 @@
-## Card Game via WebSocket
+# Card Game via WebSocket
+
+## How to use?
+
 
 This is a companion project for [this server](git@github.com:samgj18/cards.git). To run it properly please read the server instructions and once done, replace:
 
