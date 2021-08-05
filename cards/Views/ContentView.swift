@@ -2,15 +2,16 @@
 //  ContentView.swift
 //  cards
 //
-//  Created by Samuel Gómez Jiménez on 4/08/21.
+//  Created by Samuel Gómez Jiménez on 5/08/21.
 //
 
 import SwiftUI
 
 struct ContentView: View {
+    @State private var text = ""
+    
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        ModalView()
     }
 }
 
@@ -19,3 +20,6 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+
+
+

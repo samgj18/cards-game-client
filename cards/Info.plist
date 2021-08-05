@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>Cardic</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -20,6 +22,25 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Mulish-ExtraLight.ttf</string>
+		<string>Mulish-Light.ttf</string>
+		<string>Mulish-Regular.ttf</string>
+		<string>Mulish-Medium.ttf</string>
+		<string>Mulish-SemiBold.ttf</string>
+		<string>Mulish-Bold.ttf</string>
+		<string>Mulish-ExtraBold.ttf</string>
+		<string>Mulish-Black.ttf</string>
+		<string>Mulish-ExtraLightItalic.ttf</string>
+		<string>Mulish-LightItalic.ttf</string>
+		<string>Mulish-Italic.ttf</string>
+		<string>Mulish-MediumItalic.ttf</string>
+		<string>Mulish-SemiBoldItalic.ttf</string>
+		<string>Mulish-BoldItalic.ttf</string>
+		<string>Mulish-ExtraBoldItalic.ttf</string>
+		<string>Mulish-BlackItalic.ttf</string>
+	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -27,17 +48,19 @@
 	</dict>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
-	<key>UILaunchScreen</key>
-	<dict/>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
 	</array>
+	<key>UIStatusBarHidden</key>
+	<true/>
+	<key>UIStatusBarStyle</key>
+	<string>UIStatusBarStyleDarkContent</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
