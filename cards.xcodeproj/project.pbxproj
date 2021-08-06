@@ -173,7 +173,6 @@
 			children = (
 				3547FEFF26BC1E9E0059EE1A /* Customs */,
 				3547FEF326BBB3280059EE1A /* Services */,
-				3547FEF226BBB2DD0059EE1A /* Controllers */,
 				3547FEF126BBB2D70059EE1A /* Views */,
 				3547FEF026BBB2D00059EE1A /* Models */,
 				3547FEC526BB98400059EE1A /* cardsApp.swift */,
@@ -227,13 +226,6 @@
 				356172E326BCA5F700891736 /* LaunchScreen.storyboard */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		3547FEF226BBB2DD0059EE1A /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Controllers;
 			sourceTree = "<group>";
 		};
 		3547FEF326BBB3280059EE1A /* Services */ = {

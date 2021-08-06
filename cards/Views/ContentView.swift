@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var text = ""
     
     var body: some View {
         ModalView()

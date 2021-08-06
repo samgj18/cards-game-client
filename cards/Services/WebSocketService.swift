@@ -2,38 +2,39 @@
 import Starscream
 
 class WebSocketService: WebSocketDelegate, ObservableObject {
-    let socket: WebSocket!
     @Published var isLoading = true
     @Published var winner = false
     @Published var loser = false
     @Published var player: Player?
     @Published var room: Room?
     @Published var message: BackPush?
+    let name = UserDefaults.standard.array(forKey: "name")
+    let socket: WebSocket!
     let server = WebSocketServer()
     let decoder = JSONDecoder()
+    var text = "default"
+    var timer = Timer()
     
     
     init() {
-        var request = URLRequest(url: URL(string: "ws://2.tcp.ngrok.io:14744/ws/hardcodedfornow")!)
+        var request = URLRequest(url: URL(string: "ws://2.tcp.ngrok.io:14744/ws/\(text)")!)
         request.timeoutInterval = 5
         socket = WebSocket(request: request)
         socket.delegate = self
         socket.connect()
-        
+        if let unwrapped = name {
+            self.text = unwrapped.first as! String
+        }
     }
     
-    
-    // MARK: - WebSocketDelegate
     func didReceive(event: WebSocketEvent, client: WebSocket) {
         switch event {
-        case .connected(let headers):
+        case .connected(_):
+            scheduledTimerWithTimeInterval(invalidate: true)
             isLoading = false
-            print("websocket is connected: \(headers)")
-        case .disconnected(let reason, let code):
-            isLoading = false
-            print("websocket is disconnected: \(reason) with code: \(code)")
+        case .disconnected(_, _):
+            isLoading = true
         case .text(let string):
-            print(string)
             do {
                 message = try decoder.decode(BackPush.self, from: string.data(using: .ascii)!)
                 if (message?.message == "win"){
@@ -44,57 +45,52 @@ class WebSocketService: WebSocketDelegate, ObservableObject {
                     self.loser = true
                 }
             } catch {
-                print("Unexpected error: \(error).")
+                print("ERROR DECODING")
             }
             do {
                 player = try decoder.decode(Player.self, from: string.data(using: .ascii)!)
             } catch {
-                print("Unexpected error: \(error).")
+                print("ERROR DECODING")
             }
             do {
                 room = try decoder.decode(Room.self, from: string.data(using: .ascii)!)
             } catch {
                 
-                print("Unexpected error: \(error).")
+                print("ERROR DECODING")
             }
-        case .binary(let data):
-            print("Received data: \(data.count)")
+        case .binary(_):
+            print("binary")
         case .ping(_):
             break
         case .pong(_):
             break
         case .viabilityChanged(_):
+            if (isLoading) {
+                scheduledTimerWithTimeInterval(invalidate: false)
+            }
             break
         case .reconnectSuggested(_):
             break
         case .cancelled:
             isLoading = true
-        case .error(let error):
+        case .error(_):
+            scheduledTimerWithTimeInterval(invalidate: false)
             isLoading = true
-            handleError(error)
         }
     }
     
-    func handleError(_ error: Error?) {
-        if let e = error as? WSError {
-            print("websocket encountered an error: \(e.message)")
-        } else if let e = error {
-            print("websocket encountered an error: \(e.localizedDescription)")
+    func scheduledTimerWithTimeInterval(invalidate: Bool){
+        if (invalidate){
+            print("Timer invalid")
+            timer.invalidate()
         } else {
-            print("websocket encountered an error")
+            print("Trying connection")
+            timer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(self.connectToSocket), userInfo: nil, repeats: true)
         }
+        
     }
     
-    // MARK: Disconnect Action
-    
-    @IBAction func disconnect(_ sender: UIBarButtonItem) {
-        if !isLoading {
-            sender.title = "Connect"
-            socket.disconnect()
-        } else {
-            sender.title = "Disconnect"
-            socket.connect()
-        }
+    @objc func connectToSocket(){
+        socket.connect()
     }
-    
 }

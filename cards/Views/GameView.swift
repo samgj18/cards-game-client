@@ -35,7 +35,6 @@ struct GameView: View {
                             .blur(radius: self.hide ? 9 : 0)
                             .scaleEffect(self.pressed ? 1.2 : 1.0)
                         
-//                        Image("card" + String(playerTwo)).blur(radius: 9)
                     } else {
                         ActivityIndicator(isAnimating: Binding<Bool>(get: { (websocket.room?.card) == nil }, set: { _ in }), style: .large)
                     }
@@ -45,12 +44,10 @@ struct GameView: View {
                 
                 HStack{
                     Button(action: {
-                        self.playerTwo = Int.random(in: 2 ... 14)
                         if ((websocket.room?.roomId) != nil && (websocket.player?.playerId) != nil) {
                             self.writeText(roomId: websocket.room!.roomId, playerId: websocket.player!.playerId, action: "playCard")
                         }
                         self.hide = false
-                        print("Play card")
                     }, label: {
                         Image("dealbutton").renderingMode(.original)
                     }).onLongPressGesture(minimumDuration: 2.5, maximumDistance: .infinity, pressing: { pressing in
@@ -64,7 +61,6 @@ struct GameView: View {
                             self.writeText(roomId: websocket.room!.roomId, playerId: websocket.player!.playerId, action: "fold")
                         }
                         self.hide = true
-                        print("Fold")
                     }, label: {
                         Image("foldbutton").renderingMode(.original)
                     }).onLongPressGesture(minimumDuration: 2.5, maximumDistance: .infinity, pressing: { pressing in
