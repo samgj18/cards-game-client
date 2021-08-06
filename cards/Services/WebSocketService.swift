@@ -1,3 +1,9 @@
+//
+//  WebSocketService.swift
+//  cards
+//
+//  Created by Samuel Gómez Jiménez on 5/08/21.
+//
 
 import Starscream
 
